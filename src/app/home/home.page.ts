@@ -11,9 +11,11 @@ export class HomePage implements OnInit {
 
   todos: Todo[] = [];
 
-  constructor(private todoService: TodoService) { }
+  constructor(private todoService: TodoService) {
+    
+  }
 
   ngOnInit() {
-    this.todos = this.todoService.getTodos();
+    this.todoService.getTodos();
   }
 }
