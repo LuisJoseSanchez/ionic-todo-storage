@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Todo } from '../interfaces/todo';
+import { Storage } from '@ionic/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class TodoService {
   todos: Todo[] = [];
   numberOfTodos = 2;
 
-  constructor() {
+  constructor(private storage: Storage) {
     this.todos = [
       {
         id: 0,
@@ -24,15 +25,38 @@ export class TodoService {
     ]
   }
 
+  load(): Promise<Boolean> {
+
+    return new Promise(
+      resolve => {
+        this.storage.get('todos').then(
+          data => {
+            if(data != null) {
+              this.todos = data;
+            }
+
+            resolve(true);
+          }
+        );
+      }
+    );
+  }
+
+  save() {
+    this.storage.set('todos', this.todos);
+  }
+
   getTodos(): Todo[] {
     return this.todos;
   }
 
   getTodo(id: number): Todo {
-    return this.todos.filter(t => t.id == id)[0];
+    //return this.todos.filter(t => t.id == id)[0];
+    return this.todos.find(t => t.id == id);
   }
 
-  saveTodo(t: any) {
+  saveTodo(t: Todo) {
+    /*
     if (t.id) {
       this.todos[t.id].title = t.title; 
       this.todos[t.id].description = t.description; 
@@ -41,5 +65,8 @@ export class TodoService {
       this.numberOfTodos++;
       this.todos.push(t);
     }
+    */
+    this.todos.push(t);
+    this.save();
   }
 }
