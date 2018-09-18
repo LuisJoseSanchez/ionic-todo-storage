@@ -9,19 +9,8 @@ export class TodoService {
 
   todos: Todo[] = [];
 
-  constructor(private storage: Storage) {
-    /*console.log('hola');
-    this.storage.get('todos').then(
-      data => {
-        if(data != null) {
-          this.todos = data;
-          console.log('Datos: ' + data);
-        }
-      }
-    );*/
-  }
+  constructor(private storage: Storage) { }
 
-  
   load(): Promise<Boolean> {
 
     return new Promise(
@@ -38,7 +27,6 @@ export class TodoService {
       }
     );
   }
-  
 
   save(t: Todo) {
     console.log('Saving...');
