@@ -42,6 +42,6 @@ export class EditTodoPage implements OnInit {
     } else {
       this.todoService.addTodo(this.todo);
     }
-    //this.navController.goBack('/home');
+    this.navController.goBack('/home');
   }
 }
