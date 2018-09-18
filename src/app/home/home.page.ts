@@ -16,6 +16,9 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
-    this.todoService.getTodos();
+    this.todoService.load().then(
+      () => this.todos = this.todoService.getTodos()
+    );
+    
   }
 }

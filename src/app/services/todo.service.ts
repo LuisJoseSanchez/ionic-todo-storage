@@ -10,9 +10,18 @@ export class TodoService {
   todos: Todo[] = [];
 
   constructor(private storage: Storage) {
-    
+    /*console.log('hola');
+    this.storage.get('todos').then(
+      data => {
+        if(data != null) {
+          this.todos = data;
+          console.log('Datos: ' + data);
+        }
+      }
+    );*/
   }
 
+  
   load(): Promise<Boolean> {
 
     return new Promise(
@@ -29,9 +38,14 @@ export class TodoService {
       }
     );
   }
+  
 
-  save() {
+  save(t: Todo) {
+    console.log('Saving...');
+    console.log(t);
+    this.todos[t.id] = t;
     this.storage.set('todos', this.todos);
+    console.log(this.todos);
   }
 
   getTodos(): Todo[] {
@@ -43,7 +57,10 @@ export class TodoService {
   }
 
   addTodo(t: Todo) {
+    console.log('Adding todo...');
+    console.log(t);
     this.todos.push(t);
-    this.save();
+    console.log(this.todos);
+    this.storage.set('todos', this.todos);
   }
 }

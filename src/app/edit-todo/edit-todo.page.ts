@@ -30,15 +30,15 @@ export class EditTodoPage implements OnInit {
     let id = this.activatedRoute.snapshot.paramMap.get('id');
     if (id) {
       this.editMode = true;
-      this.todoService.load().then(
-        () => this.todo = this.todoService.getTodo(+id)
-      )
+      this.todo = this.todoService.getTodo(+id);
     }    
   }
 
   saveTodo() {
+    console.log(this.todo);
+
     if (this.editMode) {
-      this.todoService.save();
+      this.todoService.save(this.todo);
     } else {
       this.todoService.addTodo(this.todo);
     }
