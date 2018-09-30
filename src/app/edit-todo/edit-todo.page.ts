@@ -11,8 +11,7 @@ import { NavController } from '@ionic/angular';
 })
 export class EditTodoPage implements OnInit {
 
-  private todo: Todo;
-  private editMode: boolean = false;
+  private todo: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -29,19 +28,16 @@ export class EditTodoPage implements OnInit {
   ngOnInit() {
     let id = this.activatedRoute.snapshot.paramMap.get('id');
     if (id) {
-      this.editMode = true;
       this.todo = this.todoService.getTodo(+id);
+    } else {
+      this.todo = {};
+      this.todo.title = '';
+      this.todo.description = '';
     }    
   }
 
   saveTodo() {
-    console.log(this.todo);
-
-    if (this.editMode) {
-      this.todoService.save(this.todo);
-    } else {
-      this.todoService.addTodo(this.todo);
-    }
-    this.navController.goBack('/home');
+    this.todoService.saveTodo(this.todo);
+    this.navController.goBack(true);
   }
 }
