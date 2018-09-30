@@ -13,10 +13,11 @@
 
 <ion-content padding>
 
-  <ion-list>
-    <ion-item [href]="'/edit/' + t.id" *ngFor="let t of todos">
-        {{ t.title }}
-      </ion-item>
+  <ion-list lines="full">
+    <ion-item *ngFor="let t of todos">
+      <ion-label (click)="goEditTodo(t.id)">{{ t.title }}</ion-label>
+      <ion-icon (click)="deleteDialog(t.id, t.title)" name="trash" color="medium"></ion-icon>
+    </ion-item>
   </ion-list>
 
 </ion-content>
