@@ -87,8 +87,8 @@ export class TodoService {
     this.storage.set('todos', this.todos);
   }
 
-  deleteTodo(id: number) {
+  deleteTodo(id: number): Promise<boolean> {
     this.todos = this.todos.filter(t => t.id != id);
-    this.storage.set('todos', this.todos);
+    return this.storage.set('todos', this.todos);
   }
 }

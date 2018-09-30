@@ -43,9 +43,10 @@ export class HomePage implements OnInit {
           }, {
             text: 'Aceptar',
             handler: () => {
-              this.todoService.deleteTodo(id);
-              this.todoService.getTodos().then(
-                data => this.todos = data
+              this.todoService.deleteTodo(id).then(
+                () => this.todoService.getTodos().then(
+                  data => this.todos = data
+                )
               );
             }
           }
