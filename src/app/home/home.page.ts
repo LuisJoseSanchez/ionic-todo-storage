@@ -17,7 +17,9 @@ export class HomePage implements OnInit {
     private navControler: NavController,
     private alertController: AlertController) { }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  ionViewWillEnter() {
     this.todoService.getTodos().then(
       data => this.todos = data
     );

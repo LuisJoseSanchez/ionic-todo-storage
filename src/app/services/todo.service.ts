@@ -25,34 +25,6 @@ export class TodoService {
     );
   }
 
-  /*
-  load(): Promise<Boolean> {
-
-    return new Promise(
-      resolve => {
-        this.storage.get('todos').then(
-          data => {
-            if(data != null) {
-              this.todos = data;
-            }
-
-            resolve(true);
-          }
-        );
-      }
-    );
-  }
-*/
-
-  /*
-    save(t: Todo) {
-      console.log('Saving...');
-      console.log(t);
-      this.todos[t.id] = t;
-      this.storage.set('todos', this.todos);
-      console.log(this.todos);
-    }
-  */
   getTodos(): Promise<Todo[]> {
     return this.storage.get('todos');
   }
@@ -61,17 +33,7 @@ export class TodoService {
     return this.todos.find(t => t.id == id);
   }
 
-  /*
-  addTodo(t: Todo) {
-    console.log('Adding todo...');
-    console.log(t);
-    this.todos.push(t);
-    console.log(this.todos);
-    this.storage.set('todos', this.todos);
-  }
-*/
-
-  saveTodo(t: any) {
+  saveTodo(t: any): Promise<boolean> {
     if (t.id) {
       let index = this.todos.findIndex(todo => todo.id === t.id);
       this.todos[index] = {
@@ -84,7 +46,8 @@ export class TodoService {
       this.todos.push(t);
       this.todosCounter++;
     }
-    this.storage.set('todos', this.todos);
+    
+    return this.storage.set('todos', this.todos);
   }
 
   deleteTodo(id: number): Promise<boolean> {

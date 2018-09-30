@@ -37,7 +37,8 @@ export class EditTodoPage implements OnInit {
   }
 
   saveTodo() {
-    this.todoService.saveTodo(this.todo);
-    this.navController.goBack(true);
+    this.todoService.saveTodo(this.todo).then(
+      () => this.navController.goBack(true)
+    );
   }
 }
